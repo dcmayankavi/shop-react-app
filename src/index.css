@@ -1,0 +1,58 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  box-sizing: border-box; 
+}
+
+#root {
+    width: 700px;
+    margin: auto;
+}
+
+.product-list,
+.add-record {
+	margin: auto;
+	border-collapse: collapse;
+}
+
+.product-list {
+	border: 1px solid #bbb;
+}
+
+.add-record input[name="id"],
+.add-record input[name="price"],
+.add-record input[name="quantity"]{
+    padding-right: 0;
+}
+
+.product-list th,
+.product-list td {
+	border: 1px solid #bbb;
+	padding: 5px 10px;
+}
+
+.add-record button,
+.add-record input {
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.add-record {
+    margin: 10px auto;
+}
+
+.total-price-wrap {
+    margin-top: 30px;
+}
+
+.print-wrap {
+    text-align: right;
+    padding: 10px 0;
+}
+
+.print-wrap button {
+    padding: 5px 20px;
+}
