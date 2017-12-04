@@ -56,3 +56,11 @@ body {
 .print-wrap button {
     padding: 5px 20px;
 }
+
+#select2-name ~ .select2-container {
+  width: 100% !important;
+}
+
+.add-record .product-price {
+    margin-left: 10px;
+}

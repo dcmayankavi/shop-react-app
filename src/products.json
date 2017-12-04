@@ -1,0 +1,37 @@
+{
+	"product-1" : {
+		"id": 1,
+		"text": "Dell Laptop",
+		"price": 45000
+	},
+	"product-2" : {
+		"id": 2,
+		"text": "Keyboard & Mouse",
+		"price": 1200
+	},
+	"product-3" : {
+		"id": 3,
+		"text": "Keyboard",
+		"price": 900
+	},
+	"product-4" : {
+		"id": 4,
+		"text": "Mouse",
+		"price": 300
+	},
+	"product-5" : {
+		"id": 5,
+		"text": "UPS Battery",
+		"price": 2900
+	},
+	"product-6" : {
+		"id": 6,
+		"text": "LCD 15'",
+		"price": 200
+	},
+	"product-7" : {
+		"id": 7,
+		"text": "i3 Processer",
+		"price": 18000
+	}
+}
