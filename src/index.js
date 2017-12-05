@@ -9,7 +9,7 @@ import Products from './products.json';
 const ProductList = ( props ) => {
 	return(
 		<tr>
-			<td>{props.index + 1}</td>
+			<td>{props.index}</td>
 			<td>{props.product.text}</td>
 			<td>&#x20b9; {props.product.price}</td>
 			<td>{props.product.quantity}</td>
@@ -121,9 +121,10 @@ const TotalAmount = ( props ) => {
 	var products = props.products;
 	var total = 0;
 
-	for ( var i = 0; i < products.length; i++ ) {
-		total += ( products[i].price * products[i].quantity );
-	}
+	products.forEach(( product, index ) => {
+		total += ( product.price * product.quantity );
+	});
+
 	return(
 		<tr>
 			<td colSpan="4">Total</td>
@@ -139,7 +140,8 @@ class MainWrapper extends React.Component {
 		this.addProduct = this.addProduct.bind(this);
 		this.removeProduct = this.removeProduct.bind(this);
 		this.state = {
-			products: []
+			products: [],
+			number: 0
 		}
 	}
 
@@ -153,11 +155,19 @@ class MainWrapper extends React.Component {
 	}
 
 	addProduct( product ) {
-		var products = this.state.products;
-		products.push(product);
+		var products = this.state.products,
+			new_number = this.state.number + 1;
+
+		if( 'undefined' == typeof products[product.id] ) {
+			products[product.id] = product;
+			products[product.id].number = new_number;
+		} else {
+			products[product.id].quantity = parseInt( products[product.id].quantity ) + parseInt( product['quantity'] );
+		}
 		this.setState({
-			products
-		})
+			products,
+			number: new_number
+		});
 	}
 
 	printBill() {
@@ -170,6 +180,7 @@ class MainWrapper extends React.Component {
 	}
 	
 	render() {
+
 		return (
 			<div>
 				<ProductForm 
@@ -190,7 +201,7 @@ class MainWrapper extends React.Component {
 					<tbody>
 						{this.state.products.map((product, index) => {
 							return (
-								<ProductList removeProduct={this.removeProduct} index={index} key={product.id} product={product} />
+								<ProductList removeProduct={this.removeProduct} index={product.number} key={product.id} product={product} />
 							)
 						})}
 					</tbody>
