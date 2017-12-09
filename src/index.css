@@ -5,11 +5,6 @@ body {
   box-sizing: border-box; 
 }
 
-#root {
-    width: 700px;
-    margin: auto;
-}
-
 .product-list,
 .add-record {
 	margin: auto;
@@ -63,4 +58,9 @@ body {
 
 .add-record .product-price {
     margin-left: 10px;
+}
+
+.link-to-new-product {
+    margin-top: 15px;
+    display: inline-block;
 }

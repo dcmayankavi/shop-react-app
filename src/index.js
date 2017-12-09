@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 import jquery from 'jquery';
 import Select2 from './components/Select2/Select2';
 import './components/Select2/Select2.css';
@@ -13,11 +14,10 @@ const ProductList = ( props ) => {
 			<td>{props.product.text}</td>
 			<td>&#x20b9; {props.product.price}</td>
 			<td>{props.product.quantity}</td>
-			<td>&#x20b9; {props.product.price * props.product.quantity}</td>
-			<td><button type="button" 
+			<td>&#x20b9; {props.product.price * props.product.quantity}<button type="button" className="close" 
 				onClick={() => { 
 					props.removeProduct(props.index);
-				}}>X</button></td>
+				}}><span aria-hidden="true">&times;</span></button></td>
 		</tr>
 	)
 }
@@ -103,6 +103,7 @@ class ProductForm extends React.Component {
 									options={
 										{
 											placeholder: 'Search product...',
+											minimumInputLength: 1,
 										}
 									}
 								/>
@@ -117,6 +118,19 @@ class ProductForm extends React.Component {
 		)
 	}
 }
+
+const AddNewProduct = () => {
+	return (
+		<div className="container">
+			<ul className="nav nav-tabs">
+				<li><NavLink activeClassName="active" className="link-to-new-product" to="/">Home</NavLink></li>
+				<li className="active"><NavLink activeClassName="active" className="link-to-new-product" to="/new">New Products</NavLink></li>
+			</ul>
+			<h2>Add New Product</h2>
+		</div>
+	)
+}
+
 const TotalAmount = ( props ) => {
 	var products = props.products;
 	var total = 0;
@@ -128,7 +142,7 @@ const TotalAmount = ( props ) => {
 	return(
 		<tr>
 			<td colSpan="4">Total</td>
-			<td width="20%" colSpan="2" className="total-price">&#x20b9; {total}</td>
+			<td width="20%" className="total-price">&#x20b9; {total}</td>
 		</tr>
 	)
 }
@@ -182,12 +196,17 @@ class MainWrapper extends React.Component {
 	render() {
 
 		return (
-			<div>
+			<div className="container">
+				<ul className="nav nav-tabs">
+					<li className="active"><NavLink activeClassName="active" className="link-to-new-product" to="/">Home</NavLink></li>
+					<li><NavLink activeClassName="active" className="link-to-new-product" to="/new">New Products</NavLink></li>
+				</ul>
+				<h2>My Shop App</h2>
 				<ProductForm 
 					addProduct={this.addProduct} 
 				/>
 
-				<table id="print-screen" className="product-list">
+				<table id="print-screen" className="product-list table">
 					<thead>
 						<tr>
 							<th width="5%">Id</th>
@@ -195,7 +214,6 @@ class MainWrapper extends React.Component {
 							<th width="15%">Price</th>
 							<th width="15%">Quantity</th>
 							<th width="15%">Total</th>
-							<th width="5%">&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -210,11 +228,16 @@ class MainWrapper extends React.Component {
 					</tfoot>
 				</table>
 				<div className="print-wrap">
-					<button type="button" onClick={this.printBill}>Print</button>
+					<button type="button" className="btn btn-primary" onClick={this.printBill}>Print</button>
 				</div>
 			</div>
 		)
 	}
 }
 
-ReactDom.render(<MainWrapper />, document.getElementById('root') );
+ReactDom.render(<BrowserRouter>
+	<div>
+		<Route exact path='/' component={MainWrapper} />
+		<Route path='/new' component={AddNewProduct} />
+	</div>
+</BrowserRouter>, document.getElementById('root') );
