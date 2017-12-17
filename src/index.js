@@ -124,7 +124,7 @@ const AddNewProduct = () => {
 		<div className="container">
 			<ul className="nav nav-tabs">
 				<li><NavLink activeClassName="active" className="link-to-new-product" to="/">Home</NavLink></li>
-				<li className="active"><NavLink activeClassName="active" className="link-to-new-product" to="/new">New Products</NavLink></li>
+				<li className="active"><NavLink activeClassName="active" className="link-to-new-product" to="/new">Products</NavLink></li>
 			</ul>
 			<h2>Add New Product</h2>
 		</div>
@@ -152,6 +152,7 @@ class MainWrapper extends React.Component {
 	constructor(){
 		super();
 		this.addProduct = this.addProduct.bind(this);
+		this.printBill = this.printBill.bind(this);
 		this.removeProduct = this.removeProduct.bind(this);
 		this.state = {
 			products: [],
@@ -185,9 +186,18 @@ class MainWrapper extends React.Component {
 	}
 
 	printBill() {
+		if( this.state.products.length <= 0 ) {
+			alert('You can\'t print blank bill, Please add some product first.');
+			return false;
+		}
 		var divToPrint = document.getElementById("print-screen"),
+			printStyle = document.getElementsByTagName("style"),
 			newWin= window.open("");
 
+		for ( var i = 0; i < printStyle.length; i++ ) {
+			newWin.document.write(printStyle[i].outerHTML);
+		}
+		newWin.document.write('<style type="text/css">#print-screen button.close { display: none; } #print-screen th { text-align: left; }</style>');
 		newWin.document.write(divToPrint.outerHTML);
 		newWin.print();
 		newWin.close();
@@ -199,7 +209,7 @@ class MainWrapper extends React.Component {
 			<div className="container">
 				<ul className="nav nav-tabs">
 					<li className="active"><NavLink activeClassName="active" className="link-to-new-product" to="/">Home</NavLink></li>
-					<li><NavLink activeClassName="active" className="link-to-new-product" to="/new">New Products</NavLink></li>
+					<li><NavLink activeClassName="active" className="link-to-new-product" to="/new">Products</NavLink></li>
 				</ul>
 				<h2>My Shop App</h2>
 				<ProductForm 
